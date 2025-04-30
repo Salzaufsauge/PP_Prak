@@ -184,7 +184,7 @@ gründen Sie Ihre Antwort.
 A:
 
 g) Erweitern Sie ihr allgemeines Strukturdiagramm um die weiteren Klassen.
-
+![A3Diagram.png](Images/A3Diagram.png)
 </details>
 
 <details>
