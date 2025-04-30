@@ -126,6 +126,8 @@ unterscheidet sich? Was bleibt gleich?
 A:
 
 f) Zeichnen Sie das allgemeine Strukturdiagramm für den bisherigen Code.
+![Unbenannt-2025-04-13-1804](https://github.com/user-attachments/assets/116ce1a1-8971-4b74-8622-7c19c63162ab)
+
 </details>
 
 <details>
