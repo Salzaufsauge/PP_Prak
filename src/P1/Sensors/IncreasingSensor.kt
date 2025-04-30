@@ -1,9 +1,9 @@
-package Sensors
+package P1.Sensors
 
 class IncreasingSensor(var startTemp: Double): Sensor {
     override fun getTemperature(): Double{
-        val temp = startTemp
+//        val temp = startTemp
         startTemp += 0.5
-        return temp
+        return startTemp
     }
 }

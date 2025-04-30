@@ -1,4 +1,4 @@
-package Sensors
+package P1.Sensors
 
 import java.net.URI
 import java.net.http.HttpClient
