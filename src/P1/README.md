@@ -197,7 +197,7 @@ f) Welche objektorientierten Design Prinzipien werden vom Dekorierer Muster erf�
 gründen Sie Ihre Antwort.
 
 A:
-+ Program to an interface not an implementation: Man implementiert das Sensor interface
++ Program to an interface not an implementation: Man nutzt nur das Interface direkt.
 + Favor composition over inheritance: Man verwendet keine Inheritance um zu erweitertes verhalten zu führen
 + Single Responsibility: Dekorierer verändern nur das wofür sie gedacht sind
 + Open Closed: Dekorirer erlauben verwendung weiterer Dekorierer ohne das die funktionalität verändert wird
@@ -294,13 +294,14 @@ d) Welches Problem löst ein Beobachter? Wie wäre die Alternative, wenn man bei
 in Teilaufgabe c) keinen Beobachter verwenden würde?
 
 A:
+Observer erlauben es den State eines anderen Objektes zu kontrollieren. Wenn man keinen Observer hätte müsste man solchen Code in die measure funktion einbauen. Dies führt dazu, das man wenn man etwas anderes überprüfen muss neue methoden dem thermometer hinzufügen muss und somit die klasse aufbläht.
 
 
 e) Welche objektorientierten Design Prinzipien werden vom Beobachter Muster erfüllt? Be-
 gründen Sie Ihre Antwort.
 
 A:
-
+Alle in der Vorlesung enthaltene Muster werden vom Observer Pattern erfüllt. Z.b. haben Observer jeweils eine eigene Implementierung die über ein Interface im Subject verwendet werden können weshalb man Encapsulate what varies und Program to an Interface not an implementation erfüllt hat. Inheritance wird nicht verwendet sondern stattdessen composition durch interfaces. Subjekt und Observer sind nicht stark von einander abhängig i.E. ein observer muss nicht das genaue subjekt kennen und ein subjekt nicht den genauen observer etc.
 </details>
 
 <details>
@@ -315,23 +316,55 @@ nen Sie hierfür ein paar Codestellen (Klassen, Methoden, etc.), das jeweilige P
 Erfüllungsgrad.
 
 A:
++ Encapsulate what varies: Observer und Strategie pattern. Findet man beim Sensor und seinen implementationen z.B. ConstantSensor wieder.
++ Program to an Interface not an implementation: Überall im Code wiederzufinden. Als beispiel kann das Thermometer verwendet werden, dem man nur ein Interface übergibt aber nicht die konkrete Implementierung
++ Favor Composition over inheritance: Es wurde keine Inheritance verwendet als beispiel können die Sensoren benutzt werden
++ Loose Coupling: Im Observer pattern wiederzufinden i.E. Temperature Subject und TemperatureObserver wodurch keine abhängigkeit an unterschiedliche Implementationen existiert
 
 b) Inwiefern werden die typischen Merkmale der objektorientierten Programmierung erfüllt?
 Nennen Sie auch hier ein paar Codestellen, das jeweilige Merkmal und ihre Begründung.
 
 A:
++ Abstaraktion: Verwendung von Interfaces sorgt dafür das man nicht überall die genaue implementation benötigt z.B. Thermometer bei dem man nur wissen mus welche Methoden ein Sensor bietet
++ Wiederverwendbarkeit: Die verwendung von sachen wie dekorierern erlaubt für Modularen und Wiederverwendbaren Code z.B. A3 output bei dem Sensoren auf verschiedene weisen eingerichtet wurden 
++ Kapselung: Sensor implementierung kapseln wie die temperatur gemessen wird z.B. IncreasingSensor
++ Polymorphismus: Thermometer kann mit verschiedenen Implementierungen von Sensor arbeiten
 
 c) Inwiefern tragen die verwendeten Entwurfsmuster zur Objektorientierung bei?
 
 A:
+Entwurfsmuster tragen dazu bei, dass man gute Lösungen für wiederkehrende Probleme hat. Diese müssen nicht unbedingt die besten Lösungen für bestimmte Probleme sein können aber die herangehensweise erleichtern. Zudem können die Muster helfen nicht in Fallen wie dem Abusen von Inheritance zu geraten. 
 
-d) Wurde der imperative oder der deklarative Programmierstil überwiegend verwendet? Nen-
-nen Sie ein paar Beispiele.
+d) Wurde der imperative oder der deklarative Programmierstil überwiegend verwendet? Nennen Sie ein paar Beispiele.
 
 A:
+Es wird überwiegend imperativ gearbeitet. 
+```
+val sensor: Sensor =
+  SensorLogger(RoundValues(RandomSensor(2.0, 5.0)))
+```
+Bei diesem Code schnipsel stellt man sich genau zusammen wie der Sensor aufgebaut sein soll und kann diesen dann verwenden. Ein weiteres beispiel ist die implementierung des HeatingSystemObservers bei dem man schritt für schritt sagt wie sich der Observer verhalten soll 
+```
+class HeatingSystemObserver(val thresholdOn: Double, val thresholdOff: Double): TemperatureObserver {
+    val temperatures = mutableListOf<Double>()
+    override fun update(temp: Double) {
+        temperatures.add(temp)
+        if(temperatures.size >= 5) {
+            var averageTemp = temperatures.average()
+            println("Average temp der letzten ${temperatures.size}: $averageTemp")
+            temperatures.clear()
+            if(averageTemp > thresholdOff)
+                println("Heizung aus")
+            else if(averageTemp < thresholdOn)
+                println("Heizung an")
+        }
+    }
+}
+```
 
 e) Überlegen Sie für sich, welche Techniken und Denkweisen Sie aus der Bearbeitung des
 Praktikumsblattes mitnehmen.
 
 A:
+Ich habe mir vor allem das Arbeiten mit Interfaces angeeignet da ich aus dem C++ Bereich komme, in dem man eher andere Mittel genutzt hat. Zudem habe ich auch gelernt, wie man mithilfe der verschiedenen Muster seinen Code besser aufteilen und organisieren kann. 
 </details>
