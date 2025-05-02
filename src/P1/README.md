@@ -1,4 +1,5 @@
 # P1
+
 <details>
 <summary>Aufgabe 1</summary>
 
@@ -15,26 +16,27 @@ Temperaturwerte liefern. Die Strategien unterscheiden sich in dem Algorithmus, n
 Temperaturwerte geliefert werden:
 
 + RandomSensor: liefert zufällige Temperaturwerte innerhalb eines Wertebereichs. Der Werte-
-bereich wird über die beiden Eigenschaften min und max vom Typ Double festgelegt. Die
-beiden Eigenschaften werden im Konstruktor übergeben.
+  bereich wird über die beiden Eigenschaften min und max vom Typ Double festgelegt. Die
+  beiden Eigenschaften werden im Konstruktor übergeben.
 + ConstantSensor: liefert immer eine konstante Temperatur. Hierfür wird der im Konstruktor
-übergebene Temperaturwert verwendet.
+  übergebene Temperaturwert verwendet.
 + IncreasingSensor: liefert einen linear steigenden Temperaturverlauf. Hierfür wird zunächst
-eine Starttemperatur im Konstruktor übergeben. Diese Temperatur wird bei jedem Zugriff
-um 0.5 Grad erhöht.
+  eine Starttemperatur im Konstruktor übergeben. Diese Temperatur wird bei jedem Zugriff
+  um 0.5 Grad erhöht.
 + RealWorldSensor: liefert die echte Temperatur für eine bestimmte Umgebung. Der Klas-
-se werden zunächst die Koordinaten für einen Ort übergeben (Latitude und Longitude).
-Bei jedem Zugriff auf getTemperature wird eine öffentliche Schnitstelle (API) angespro-
-chen, die die aktuelle Temperatur für die Koordinaten zurückgibt. Die vollständige Im-
-plementierung sollen Sie sich hieraus kopieren: https://gist.github.com/alexdobry/
-d192b9daf218a00678f5e6709a263f27. Schauen Sie sich die Implementierung an und ver-
-suchen Sie diese nachzuvollziehen.
+  se werden zunächst die Koordinaten für einen Ort übergeben (Latitude und Longitude).
+  Bei jedem Zugriff auf getTemperature wird eine öffentliche Schnitstelle (API) angespro-
+  chen, die die aktuelle Temperatur für die Koordinaten zurückgibt. Die vollständige Im-
+  plementierung sollen Sie sich hieraus kopieren: https://gist.github.com/alexdobry/
+  d192b9daf218a00678f5e6709a263f27. Schauen Sie sich die Implementierung an und ver-
+  suchen Sie diese nachzuvollziehen.
 + Bonus SinusoidalSensor: liefert einen sinusförmigen Temperaturverlauf. Informieren Sie
-sich hierfür über harmonische Schwingungen bzw. Sinusschwingungen. Als Parameter be-
-nötigen Sie die Amplitude, Frequenz und Phasenverschiebung (Veränderung über Zeit).
+  sich hierfür über harmonische Schwingungen bzw. Sinusschwingungen. Als Parameter be-
+  nötigen Sie die Amplitude, Frequenz und Phasenverschiebung (Veränderung über Zeit).
 
 Testen Sie alle Sensoren, indem Sie diese instanziieren und die getTemperature-Methode in
 einer Schleife aufrufen. Spielen Sie auch mit den Koordinaten des RealWorldSenor herum:
+
 ```
 fun main () {
 val randomSensor = RandomSensor (min = 2.0, max = 8.0) // liefert
@@ -62,6 +64,7 @@ realWorldSenor .long = 6.958210
 println ("Köln: ${ realWorldSenor . getTemperature ()}")
 }
 ```
+
 Die Konsolenausgabe kann beispielsweise so aussehen:
 > Random Sensor: 6.496897428041999\
 > Random Sensor: 3.5319770622098154\
@@ -81,6 +84,7 @@ Die Konsolenausgabe kann beispielsweise so aussehen:
 <summary>Aufgabe 2</summary>
 
 ### Strategien verwenden
+
 In dieser Aufgabe sollen die ersten Vorteile der Strategie ersichtlich werden. Hierfür benötigen
 wir einen Client, der die Strategie verwendet.
 
@@ -95,6 +99,7 @@ eine der in Aufgabe 1 definierten Strategien. Rufen Sie jeweils die measure Meth
 schauen Sie sich die Ausgaben in der Konsole an. Überprüfen Sie, ob die ausgegebenen Werte
 der Implementierung der Strategie entsprechen.
 Beispielhafte Verwendung:
+
 ```
 fun main () {
 // Thermometer mit erster Strategie initialisieren
@@ -102,11 +107,13 @@ val thermometer = Thermometer (sensor = RandomSensor (2.0 , 8.0))
 thermometer . measure (10)
 }
 ```
+
 c) Nach dem Aufruf der measure Funktion: Ändern Sie die Strategie des Thermometers auf
 eine andere Strategie. Rufen Sie erneut die measure Methode auf und schauen Sie sich die
 Ausgaben in der Konsole an. Nun sollten die ausgegebenen Werte der Implementierung der
 anderen Strategie entsprechen.
 Beispielhafte Verwendung:
+
 ```
 fun main () {
 // Code von oben ...
@@ -119,11 +126,17 @@ thermometer . measure (10)
 d) Welchen Vorteil bringt die Strategie für dieses Beispiel?
 
 A:
+In diesem Beispiel hilft das Verwenden vom Strategie Pattern dabei, das man vom Thermometer aus nur das Interface verwendet
+und somit für die unterschiedlichen Implementationen nicht extra conditions abfragen muss und einfach nur die
+Implementation je nach wunsch austauschen kann. Dies hilft dabei den Code dynamischer und cleaner zu designen.
 
 e) Inwiefern wird das objektorientierte Design Prinzip “encapsulate what varies” erfüllt? Was
 unterscheidet sich? Was bleibt gleich?
 
 A:
+Die veränderung verbirgt sich in der genauen implementation des algorithmus i.E. wie genau die temperatur ausgelesen
+wird. Das Thermometer sieht nur das interface wodurch man sich nicht mit dem genauen ergebnis befassen muss. Das
+Interface und das Thermometer sind die teile die gleich bleiben.
 
 f) Zeichnen Sie das allgemeine Strukturdiagramm für den bisherigen Code.
 ![A2Diagram.png](Images/A2Diagram.png)
@@ -141,19 +154,20 @@ werden.
 a) Implementieren Sie die folgenden Dekorierer:
 
 + SensorLogger: Schreibt bei jeder Temperaturabfrage den aktuellen Wert auf die Konsole.
-Kostenausgaben sollen ausschließlich über diesen Dekorierer erfolgen. Entfernen Sie alle
-anderen Ausgaben.
+  Kostenausgaben sollen ausschließlich über diesen Dekorierer erfolgen. Entfernen Sie alle
+  anderen Ausgaben.
 + RoundValues: Rundet die Temperatur auf ganze Zahlen. So wird beispielsweise 19.4 zu 19.0
-gerundet.
+  gerundet.
 + FahrenheitSensor: Rechnet den Temperaturwert von Celsius in Fahrenheit um.
 
 b) Testen Sie jetzt die Dekorierer, indem Sie folgende Aufgaben erledigen:
+
 + Erzeugen Sie einen Sensor, welcher zufällige Temperaturen zwischen 2.0 und 5.0 rundet
-und diese auf der Konsole ausgibt.
+  und diese auf der Konsole ausgibt.
 + Erzeugen Sie einen Sensor, welcher linear aufsteigende Temperaturen ab 20.0 Grad Celsius
-in Fahrenheit umrechnet, diese danach rundet und anschließend auf der Konsole ausgibt.
+  in Fahrenheit umrechnet, diese danach rundet und anschließend auf der Konsole ausgibt.
 + Erzeugen Sie einen Sensor, der das gleiche wie in der Aufgabe davor macht, aber zusätzlich
-die Temperatur in Celsius ausgibt, bevor in Fahrenheit umgerechnet wird.
+  die Temperatur in Celsius ausgibt, bevor in Fahrenheit umgerechnet wird.
 
 Verwenden Sie diese dekorierten Sensoren in Ihrer main Funktion. Da Sie jeweils den SensorLogger
 verwenden, müssten Sie die dekorierten Ergebnisse auf der Konsole sehen. Überprüfen Sie diese
@@ -161,27 +175,33 @@ Konsolenausgaben.
 
 c) Ist die Reihenfolge beim Dekorieren relevant? Begründen Sie Ihre Antwort, indem Sie
 prüfen, ob es einen Unterschied zwischen
+
 ```
 val t1 = Thermometer(SensorLogger(RoundValues(RandomSensor(2.0, 5.0)))) und
 val t2 = Thermometer(RoundValues(SensorLogger(RandomSensor(2.0, 5.0)))) gibt.
 ```
 
-A:
+A: Die Reihenfolge ist relevant, da man beim Dekorierer den Output des übergebenen Sensors verarbeitet und weitergibt. Im Beispiel würde man bei einer random value von 2,5 bei t1 den Output (in der Konsole) 3, wärend man bei t2 den Output (in der Konsole) 2,5 bekommt. Wenn man jedoch die values weiterverwendet (außerhalb des kontextes der aufgabe) sind values 3 da beides gerundet wird 
 
 d) Was für Vorteile bringt der Dekorierer? Hätte das alles auch mit weiteren Strategien funk-
 tioniert? Wenn nein, was wäre das Problem gewesen?
 
-A:
+A: Der vorteil des Dekorierers ist, das man den Output weiterverarbeiten kann und so geziehlter den wunsch output erlangt ohne das man für jedes einzelne Wunsch output eine eigene Strategie braucht. Man erweitert oder filtert somit seinen Output. Wenn man dies mit Strategien versucht, hat man am ende keinen groß anpassbaren Code oder evtl einiges an dead Code wenn man das Interface immer um neue Strategien für jede kleinigkeit erweitert.
 
 e) Was ist der grundsätzliche Unterschied zwischen einem Dekorierer und einer Strategie?
 Wann wird was verwendet?
 
-A:
+A: Die Strategie liefert eine Implementierung eines Algorithmus, während das Dekorierer Pattern eine erweiterung für den Algorithmus liefert. Somit kann eine Strategie alleinstehend verwendet werden, den Dekorierer nutzt man jedoch im zusammenhang mit anderem Code. 
 
 f) Welche objektorientierten Design Prinzipien werden vom Dekorierer Muster erfüllt? Be-
 gründen Sie Ihre Antwort.
 
 A:
++ Program to an interface not an implementation: Man implementiert das Sensor interface
++ Favor composition over inheritance: Man verwendet keine Inheritance um zu erweitertes verhalten zu führen
++ Single Responsibility: Dekorierer verändern nur das wofür sie gedacht sind
++ Open Closed: Dekorirer erlauben verwendung weiterer Dekorierer ohne das die funktionalität verändert wird
++ Liskov Substitution: Dekorierer verändern den Typ des Outputs nicht
 
 g) Erweitern Sie ihr allgemeines Strukturdiagramm um die weiteren Klassen.
 ![A3Diagram.png](Images/A3Diagram.png)
@@ -191,6 +211,7 @@ g) Erweitern Sie ihr allgemeines Strukturdiagramm um die weiteren Klassen.
 <summary>Aufgabe 4</summary>
 
 ### Beobachten des Thermometers
+
 In dieser Aufgabe werden Sie ermöglichen, dass andere Objekte das Thermometer beobachten
 können und über Temperaturänderungen benachrichtigt werden.
 
@@ -198,20 +219,22 @@ a) Definieren Sie dazu eine Schnittstelle TemperatureObserver mit einer update(t
 Methode. Diese Methode soll die neue Temperatur als Parameter erhalten.
 
 b) Definieren Sie folgende Beobachter:
+
 + TemperatureAlert: Schreibt eine Nachricht auf der Konsole, wenn eine bestimmte Tempe-
-ratur erreicht wird. Die Klasse nimmt den Schwellwert und die Nachricht im Konstruktor
-entgegen. So wird z.B. die Nachricht “Ganz schön heiß” bei einer Schwelltemperatur von 30
-Grad ausgegeben.
+  ratur erreicht wird. Die Klasse nimmt den Schwellwert und die Nachricht im Konstruktor
+  entgegen. So wird z.B. die Nachricht “Ganz schön heiß” bei einer Schwelltemperatur von 30
+  Grad ausgegeben.
 + HeatingSystemObserver: Schaltet eine Heizung an oder aus, basierend auf der Durchschnitts-
-temperatur der letzten 5 Temperaturen. Zunächst werden 5 Temperaturwerte in einer Liste
-gesammelt. Wenn 5 Werte vorhanden sind, wird der Durchschnitt berechnet. Liegt der
-Durchschnitt über einer bestimmten Grenze, wird “Heizung aus” auf der Konsole ausgege-
-ben. Liegt der Durchschnitt unter einer bestimmten Grenze, wird “Heizung an” ausgegeben.
-Anschließend wird die Liste für die nächsten 5 Temperaturen geleert. Die beiden Schwell-
-werte werden im Konstruktor übergeben.
+  temperatur der letzten 5 Temperaturen. Zunächst werden 5 Temperaturwerte in einer Liste
+  gesammelt. Wenn 5 Werte vorhanden sind, wird der Durchschnitt berechnet. Liegt der
+  Durchschnitt über einer bestimmten Grenze, wird “Heizung aus” auf der Konsole ausgege-
+  ben. Liegt der Durchschnitt unter einer bestimmten Grenze, wird “Heizung an” ausgegeben.
+  Anschließend wird die Liste für die nächsten 5 Temperaturen geleert. Die beiden Schwell-
+  werte werden im Konstruktor übergeben.
 
 c) Das Thermometer ist das zu beobachtende Subjekt (Publisher). Daher muss es das folgende
 Interface implementieren:
+
 ```
 interface TemperatureSubject {
 val observers : MutableList < TemperatureObserver >
@@ -219,6 +242,7 @@ fun addObserver (o: TemperatureObserver )
 fun removeObserver (o: TemperatureObserver )
 }
 ```
+
 Implementieren Sie das Interface so, dass TemperatureObserver hinzugefügt und entfernt werden
 können. Sorgen Sie auch dafür, dass alle registrierten TemperatureObserver benachrichtigt
 werden, wenn sich die Temperatur ändert.
@@ -229,6 +253,7 @@ det wird. Zudem soll die Heizung ab beispielsweise 19 Grad eingeschaltet und unt
 ausgeschaltet werden.
 
 Hier ein Beispiel:
+
 ```
 fun main () {
 val sensor = SensorLogger ( RoundValues ( RandomSensor (10.0 , 50.0)))
@@ -246,6 +271,7 @@ thermometer . addObserver ( heatingSystemObserver )
 thermometer . measure (20)
 }
 ```
+
 Die Konsolenausgabe kann beispielsweise so aussehen:
 > 15.0\
 > 21.0\
@@ -265,13 +291,10 @@ Die Konsolenausgabe kann beispielsweise so aussehen:
 > Heizung an!
 
 d) Welches Problem löst ein Beobachter? Wie wäre die Alternative, wenn man beispielsweise
-in Teilaufgabe 
+in Teilaufgabe c) keinen Beobachter verwenden würde?
 
 A:
 
-c) keinen Beobachter verwenden würde?
-
-A:
 
 e) Welche objektorientierten Design Prinzipien werden vom Beobachter Muster erfüllt? Be-
 gründen Sie Ihre Antwort.
