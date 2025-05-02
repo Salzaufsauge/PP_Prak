@@ -1,4 +1,4 @@
-package P1
+package P1.Tasks
 
 import P1.Observer.HeatingSystemObserver
 import P1.Observer.TemperatureAlert

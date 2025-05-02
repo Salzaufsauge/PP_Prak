@@ -1,6 +1,6 @@
 # Repo für PP Praktikum
 
-Für ausgaben [main.kt](src/main.kt) ausführen
+Für ausgaben [main.kt](src/P1/main.kt) ausführen
 
 Implementatinonen und Antworten auf Aufgaben:
 

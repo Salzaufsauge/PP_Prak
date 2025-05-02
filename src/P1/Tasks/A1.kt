@@ -1,4 +1,4 @@
-package P1
+package P1.Tasks
 
 import P1.Sensors.*
 

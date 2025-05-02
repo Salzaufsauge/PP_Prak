@@ -38,7 +38,7 @@ Testen Sie alle Sensoren, indem Sie diese instanziieren und die getTemperature-M
 einer Schleife aufrufen. Spielen Sie auch mit den Koordinaten des RealWorldSenor herum:
 
 ```
-fun main () {
+fun P1.main () {
 val randomSensor = RandomSensor (min = 2.0, max = 8.0) // liefert
 zufällige Temperaturen zwischen 2.0 und 8.0 Grad
 repeat (3) {
@@ -91,17 +91,17 @@ wir einen Client, der die Strategie verwendet.
 a) Schreiben Sie eine Klasse Thermometer, die einen Sensor im Konstruktor entgegennimmt.
 Diese Variable sollte veränderlich sein, damit Sie die Strategie später austauschen können.
 Implementieren Sie die Methode ```measure(times: Int)```, welche die repeat-Funktion verwendet,
-um times Mal die Temperatur vom Sensor abzufragen (siehe main Funktion der letzten Seite
+um times Mal die Temperatur vom Sensor abzufragen (siehe P1.main Funktion der letzten Seite
 für die Verwendung von repeat).
 
-b) Erzeugen Sie ein Thermometer in der main Funktion. Übergeben Sie dem Thermometer
+b) Erzeugen Sie ein Thermometer in der P1.main Funktion. Übergeben Sie dem Thermometer
 eine der in Aufgabe 1 definierten Strategien. Rufen Sie jeweils die measure Methode auf und
 schauen Sie sich die Ausgaben in der Konsole an. Überprüfen Sie, ob die ausgegebenen Werte
 der Implementierung der Strategie entsprechen.
 Beispielhafte Verwendung:
 
 ```
-fun main () {
+fun P1.main () {
 // Thermometer mit erster Strategie initialisieren
 val thermometer = Thermometer (sensor = RandomSensor (2.0 , 8.0))
 thermometer . measure (10)
@@ -115,7 +115,7 @@ anderen Strategie entsprechen.
 Beispielhafte Verwendung:
 
 ```
-fun main () {
+fun P1.main () {
 // Code von oben ...
 // Strategie wechseln
 thermometer .sensor = IncreasingSensor ( startTemp = 15.0)
@@ -169,7 +169,7 @@ b) Testen Sie jetzt die Dekorierer, indem Sie folgende Aufgaben erledigen:
 + Erzeugen Sie einen Sensor, der das gleiche wie in der Aufgabe davor macht, aber zusätzlich
   die Temperatur in Celsius ausgibt, bevor in Fahrenheit umgerechnet wird.
 
-Verwenden Sie diese dekorierten Sensoren in Ihrer main Funktion. Da Sie jeweils den SensorLogger
+Verwenden Sie diese dekorierten Sensoren in Ihrer P1.main Funktion. Da Sie jeweils den SensorLogger
 verwenden, müssten Sie die dekorierten Ergebnisse auf der Konsole sehen. Überprüfen Sie diese
 Konsolenausgaben.
 
@@ -255,7 +255,7 @@ ausgeschaltet werden.
 Hier ein Beispiel:
 
 ```
-fun main () {
+fun P1.main () {
 val sensor = SensorLogger ( RoundValues ( RandomSensor (10.0 , 50.0)))
 val thermometer = Thermometer (sensor = sensor )
 val alertObserver = TemperatureAlert (
