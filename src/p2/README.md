@@ -49,10 +49,10 @@ und Ordering<Boolean>.
 
 a) Da wir nun primitive Orderings haben, sollen Sie Funktionen mit Orderings definieren.
 Jeder dieser Funktionen nimmt ein Ordering entgegen und gibt ein neues Ordering zurück:
-• reversed: Dreht das OrderResult des übergebenen Orderings um (vgl. ReversedOrdering).
-• debug: Gibt die zwei zu vergleichenden Elemente und das Ergebnis dessen auf der Konsole
++ reversed: Dreht das OrderResult des übergebenen Orderings um (vgl. ReversedOrdering).
++ debug: Gibt die zwei zu vergleichenden Elemente und das Ergebnis dessen auf der Konsole
 aus (vgl. DebugOrdering).
-• none: Ignoriert das übergebene Ordering und gibt konstant Equal zurück.
++ none: Ignoriert das übergebene Ordering und gibt konstant Equal zurück.
 Die Verwendung kann beispielsweise so aussehen:
 ```
 fun main () {
@@ -64,18 +64,18 @@ val noOrd = none( stringOrd )
 ```
 
 b) Beantworten Sie zudem folgende Fragen:
-+ • Warum sind reversed, debug und none Funktionen höherer Ordnung?
++ Warum sind reversed, debug und none Funktionen höherer Ordnung?
 
-A:
-+ • Welches Entwurfsmuster wurde durch die Verwendung von Funktionen höherer Ordnung
+A: Dies ermöglicht es Ordering zu übergeben da Ordering eine Funktion ist. 
++ Welches Entwurfsmuster wurde durch die Verwendung von Funktionen höherer Ordnung
 realisiert?
 
-A:
-+ • Warum kann das Entwurfsmuster dadurch implementiert werden? Was ist die Grundle-
+A: Das Entwurfsmuster welches implementiert wurde ist das Dekorierer Muster
++ Warum kann das Entwurfsmuster dadurch implementiert werden? Was ist die Grundle-
 gende Struktur des Entwurfsmusters und inwiefern korreliert diese Struktur mit der von
 Funktionen höherer Ordnung?
 
-A:
+A: Das Entwurfsmuster erweitert den Input -> Man nutzt den Input und fügt Konstrukte hinzu um den Output zu erweitern. Das gleiche kann man mit einer Funktion höherer Ordnung machen, indem man die übergebene Funktion innerhalb der FHO aufruft und weitere sachen wie z.B. eine Print funktion auf den Output der übergebenen Funktion anwendet. 
 </details>
 <details>
 <summary> Aufgabe 1.3</summary>
@@ -237,8 +237,13 @@ println ( sorting .sort(people , personOrd ))
 
 a) Welcher Typ in Kotlin ist äquivalent zur 1 in der Algebra?
 
+A: Unit
+
 b) Zeigen Sie, ob Either<A?, B> äquivalent bzw. isomorph zu Either<A, B>? ist. Achtung:
-die ? deuten auf nullfähige Typen hin!. Überführen Sie dazu die Typen in Algebra.
+die '?' deuten auf nullfähige Typen hin!. Überführen Sie dazu die Typen in Algebra.
+
+A: (a + 1) + b = (a + b) + 1
+a + b + 1 = a + b + 1
 
 c) Überführen Sie das Potenzgesetz a0 = 1 in Typen. Implementieren Sie auch die jeweilige
 to- und from-Funktion. Die Funktionen sind:
@@ -248,9 +253,12 @@ fun <A> from(unit: Unit): ( Nothing ) -> A = TODO ()
 ```
 Bei der Implementierung von from dürfen Sie keine Exception werfen.
 
-d) Warum kann die from-Funktion implementiert werden, obwohl nur ein Nothing zur Verfü-
-gung steht, aber ein Wert vom Typ A zurückgegeben werden muss? Hinweis: Die Antwort liegt
+A: Nothing → A = Unit
+
+d) Warum kann die from-Funktion implementiert werden, obwohl nur ein Nothing zur Verfügung steht, aber ein Wert vom Typ A zurückgegeben werden muss? Hinweis: Die Antwort liegt
 im Subtyping-System von Kotlin.
+
+A: Nothing ist ein Subtyp aller Oberklassen. Dies bedeutet das das returnen von {it} im fro für den Compiler korrekt ist aber an die Funktion nicht nutzen kann
 
 e) Gegeben sei der Typ Either<A, B> und die Funktion makeEither, die aus einem A und B
 ein Either<A, B> erzeugt:
@@ -265,6 +273,11 @@ Implementieren Sie die makeEither Funktion, sodass der Code kompiliert.
 f) Warum ist die Implementierung von makeEither nicht 100 %ig valide? Begründe Sie ihre
 Antwort entweder mit der Verwendung von Algebra oder durch logische Argumente.
 
+A: (A, B) → A + B = A + 0
+(a + b) ^ (a * b) = a + 0 
+
+Die Funktion kann nicht 100% valide sein, da sie nur einen Teil von Either zurückliefern kann
+
 </details>
 
 <details>
@@ -277,7 +290,15 @@ Ordnen Sie das gesamte Praktikumsblatt in das funktionale Paradigma ein.
 a) Inwiefern werden die typischen Merkmale der funktionalen Programmierung erfüllt? Nen-
 nen Sie auch hier ein paar Codestellen, das jeweilige Merkmal und ihre Begründung.
 
+A: Funktionen wurden als Werte behandelt (OrderingFunctional.kt z 13)
+Funktionen Höherer Ordnung wurden verwendet z 34
+komposition und transformation durch verwendung von kombinatoren wie zip und contramap z 51
+starke Typisierung durch orientirrung an algebraischen datentypen main z 5
+
+
 b) Überlegen Sie für sich, welche Techniken und Denkweisen Sie aus der Bearbeitung des
 Praktikumsblattes mitnehmen.
+
+A: Ich habe vor allem gelernt wie man auch ohne klassen stark flexiblen code designen kann und auch eine andere sichtweise auf Daten, Datentypen und Funktionen kennengelernt.
 
 </details>

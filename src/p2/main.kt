@@ -2,6 +2,14 @@ package p2
 import p2.ordering_functional.*
 import p2.person.*
 
+fun <A> to(f: ( Nothing ) -> A): Unit = Unit
+fun <A> from(unit: Unit): ( Nothing ) -> A = { it }
+
+sealed interface Either <out A, out B>
+data class Left <A>( val a: A): Either <A, Nothing >
+data class Right <B>( val b: B): Either <Nothing , B>
+fun <A, B> makeEither (a: A, b: B): Either <A, B> = Left(a)
+
 fun main(){
 //    val p1 = Person("Alice", 29)
 //    val p2 = Person("John", 31)
